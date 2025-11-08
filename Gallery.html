@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Love Story - Pink Hearts Rain</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+/* Background */
+body {
+    margin: 0;
+    background: linear-gradient(to bottom, #fff5f9, #ffeef5);
+    font-family: sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    background: #fff0f7;
+}
+
+/* MASSIVE PINK HEART RAIN */
+.heart {
+    position: absolute;
+    font-size: 22px;
+    animation: float 10s infinite linear;
+    user-select: none;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.85;
+    filter: drop-shadow(0 0 8px rgba(255,20,147,0.6));
+}
+
+/* Faster & varied animations */
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    10% { opacity: 0.9; }
+    90% { opacity: 0.9; }
+    100% {
+        transform: translateY(-120px) rotate(360deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Pink heart variations */
+.heart.pink1 { color: #ff69b4; }
+.heart.pink2 { color: #ff1493; }
+.heart.pink3 { color: #ff00ff; }
+.heart.pink4 { color: #ff1493; }
+.heart.pink5 { color: #ffb6c1; font-size: 28px; }
+.heart.pink6 { color: #ffc1cc; font-size: 30px; }
+.heart.sparkle { color: #ff69b4; animation-duration: 8s; }
+
+/* Rest of your gallery styles (unchanged) */
+.polaroid-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 40px 15px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+.polaroid {
+    background: white;
+    padding: 12px 12px 45px 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    border-radius: 8px;
+    transform: rotate(var(--rot, 0deg));
+    max-width: 100%;
+}
+.polaroid:nth-child(1) { --rot: -6deg; }
+.polaroid:nth-child(2) { --rot: 5deg; }
+.polaroid:nth-child(3) { --rot: -4deg; }
+.polaroid:nth-child(4) { --rot: 7deg; }
+.polaroid:nth-child(5) { --rot: -5deg; }
+.polaroid:nth-child(6) { --rot: 4deg; }
+.polaroid:nth-child(7) { --rot: -7deg; }
+.polaroid:nth-child(8) { --rot: 6deg; }
+
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.1) translateY(-12px) !important;
+    box-shadow: 0 25px 50px rgba(255, 105, 180, 0.3);
+    z-index: 10;
+}
+.polaroid img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid #fff0f5;
+    border-radius: 4px;
+    transition: 0.4s;
+}
+.polaroid:hover img {
+    transform: scale(1.08);
+    border-color: #ff69b4;
+}
+.polaroid-caption {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: #e91e63;
+    text-shadow: 0 1px 3px rgba(255,255,255,0.9);
+    pointer-events: none;
+}
+
+/* Lightbox & Mobile styles (unchanged) */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(12px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.lightbox.active { display: flex; }
+.lightbox img {
+    max-width: 95%;
+    max-height: 85vh;
+    border: 8px solid white;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    border-radius: 12px;
+    animation: pop 0.6s ease;
+}
+@keyframes pop {
+    0% { transform: scale(0.4) rotate(-15deg); }
+    70% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 45px;
+    color: white;
+    background: rgba(255,105,180,0.4);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 3px solid rgba(255,255,255,0.3);
+}
+.close-btn:hover {
+    background: #ff1493;
+    transform: scale(1.2) rotate(90deg);
+}
+
+@media (max-width: 900px) {
+    .polaroid-gallery { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 500px) {
+    .polaroid-gallery { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- PINK HEART RAIN CONTAINER -->
+<div id="heart-container"></div>
+
+<!-- Your Gallery (unchanged) -->
+<div class="polaroid-gallery">
+   <div class="polaroid" onclick="openLightbox('1.jpg')">
+    <img src="1.jpg" alt="Childhood">
+    <div class="polaroid-caption">Tiny hands, big dreams</div>
+</div>
+<div class="polaroid" onclick="openLightbox('2.jpg')">
+    <img src="2.jpg" alt="Childhood">
+    <div class="polaroid-caption">That sparkle never left your eyes</div>
+</div>
+<div class="polaroid" onclick="openLightbox('3.jpg')">
+    <img src="3.jpg" alt="Childhood">
+    <div class="polaroid-caption">Little miss sunshine since day one</div>
+</div>
+<div class="polaroid" onclick="openLightbox('4.jpg')">
+    <img src="4.jpg" alt="Childhood">
+    <div class="polaroid-caption">Pigtails and endless giggles</div>
+</div>
+<div class="polaroid" onclick="openLightbox('5.jpg')">
+    <img src="5.jpg" alt="Childhood">
+    <div class="polaroid-caption">Pure joy in every photo</div>
+</div>
+<div class="polaroid" onclick="openLightbox('6.jpg')">
+    <img src="6.jpg" alt="Childhood">
+    <div class="polaroid-caption">Born to light up every room</div>
+</div>
+<div class="polaroid" onclick="openLightbox('7.jpg')">
+    <img src="7.jpg" alt="Childhood">
+    <div class="polaroid-caption">Cheeks made for pinching</div>
+</div>
+<div class="polaroid" onclick="openLightbox('8.jpg')">
+    <img src="8.jpg" alt="Childhood">
+    <div class="polaroid-caption">Little adventurer, big heart</div>
+</div>
+<div class="polaroid" onclick="openLightbox('9.jpg')">
+    <img src="9.jpg" alt="Childhood">
+    <div class="polaroid-caption">Happy Birthday! Still our little star</div>
+</div>
+<div class="polaroid" onclick="openLightbox('10.jpg')">
+    <img src="10.jpg" alt="Childhood">
+    <div class="polaroid-caption">Those curls stole everyone's heart</div>
+</div>
+<div class="polaroid" onclick="openLightbox('11.jpg')">
+    <img src="11.jpg" alt="Childhood">
+    <div class="polaroid-caption">Always dancing through life</div>
+</div>
+<div class="polaroid" onclick="openLightbox('12.jpg')">
+    <img src="12.jpg" alt="Childhood">
+    <div class="polaroid-caption">Sweetest smile in every picture</div>
+</div>
+<div class="polaroid" onclick="openLightbox('13.jpg')">
+    <img src="13.jpg" alt="Childhood">
+    <div class="polaroid-caption">Our little bundle of happiness</div>
+</div>
+<div class="polaroid" onclick="openLightbox('14.jpg')">
+    <img src="14.jpg" alt="Childhood">
+    <div class="polaroid-caption">Time flies, but this cuteness stays forever</div>
+</div>
+<div class="polaroid" onclick="openLightbox('15.jpg')">
+    <img src="15.jpg" alt="Childhood">
+    <div class="polaroid-caption">Happy Birthday to our forever little girl!</div>
+</div>
+    
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="close-btn" onclick="event.stopPropagation(); closeLightbox()">×</span>
+    <img id="lightbox-img" src="" alt="Full Love">
+</div>
+
+<script>
+// LIGHTBOX FUNCTIONS (unchanged)
+function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+});
+
+// 🌸 PINK HEART RAIN EXPLOSION 🌸
+const heartsContainer = document.getElementById('heart-container');
+const heartEmojis = ['🩷', '🤍', '💛', '🤍', '🩷', '🤍', '🤍', '💛', '🩷', '🤍'];
+const colors = ['pink1', 'pink2', 'pink3', 'pink4', 'pink5', 'pink6', 'sparkle'];
+
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.classList.add(colors[Math.floor(Math.random() * colors.length)]);
+    heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    
+    // Random position
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (Math.random() * 5 + 6) + 's'; // 6-11s
+    heart.style.animationDelay = Math.random() * 2 + 's';
+    
+    heartsContainer.appendChild(heart);
+
+    // Remove after animation
+    setTimeout(() => {
+        heart.remove();
+    }, 12000);
+}
+
+// FLOOD THE SCREEN WITH HEARTS IMMEDIATELY
+for (let i = 0; i < 120; i++) {
+    setTimeout(createHeart, i * 50); // Burst of 120 hearts in 6 seconds
+}
+
+// Keep spawning forever
+setInterval(createHeart, 80); // New heart every 80ms = LOVE TSUNAMI
+
+// Extra burst every 5 seconds
+setInterval(() => {
+    for (let i = 0; i < 30; i++) {
+        setTimeout(createHeart, i * 30);
+    }
+}, 5000);
+
+</script>
+</body>
+</html>
